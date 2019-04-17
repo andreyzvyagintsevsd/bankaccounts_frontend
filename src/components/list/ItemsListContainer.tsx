@@ -21,13 +21,17 @@ interface OwnProps {
 }
 
 const mapStateToProps = (state: RootState) => ({
-  ItemsList: state.account.accounts,
+  itemsList: state.account.accounts,
+  branches: state.dictionary.branches,
+  banks: state.dictionary.banks,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<any>, props: OwnProps) => bindActionCreators({
   getAccountList: (minAccount: string, maxAccount: string) => actions.getAccountListAction(minAccount, maxAccount),
   deleteAccount: (accountId: number) => actions.deleteAccountAction(accountId),
-  updateAccount: (account: Account) => actions.updateAccountAction(account)
+  updateAccount: (account: Account) => actions.updateAccountAction(account),
+  getBanks: () => actions.getBanksAction(),
+  getBranches: (bank: string) => actions.getBranchesAction(bank)
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemsList);

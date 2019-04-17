@@ -15,6 +15,7 @@
   "list.table.lastUpdate": "Last Update",
   "wizard.close": "Close",
   "wizard.next": "Next",
+  "wizard.back": "Back",
   "wizard.save": "Save Changes",
   "wizard.title.edit": "Edit Account",
   "wizard.title.create": "Create Account"

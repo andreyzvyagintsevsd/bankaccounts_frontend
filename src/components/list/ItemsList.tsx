@@ -1,16 +1,20 @@
 import React, { Component } from "react";
 import { Account } from "../../models/Account";
-import { Table, Button } from 'react-bootstrap';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import { Table, Button } from "react-bootstrap";
+import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 
-import Wizard from '../wizard/Wizard';
+import Wizard from "../wizard/Wizard";
 import { FormattedMessage } from "react-intl";
 
 export interface ItemsListProps {
-  ItemsList?: Account[];
+  itemsList?: Account[];
   getAccountList?: (minAccount: string, maxAccount: string) => void;
   deleteAccount?: (accountId: number) => void;
   updateAccount?: (account: Account) => void;
+  getBanks?: () => void;
+  getBranches?: (bank: string) => void;
+  branches?: string[];
+  banks?: string[];
 }
 
 interface ItemsListState {
@@ -23,11 +27,11 @@ interface ItemsListState {
 function getDefaultItem() {
   return {
     id: 0,
-    accountHolder: "",
-    employee: "",
-    bank: "",
-    branch: "",
-    type: "",
+    accountHolderName: "",
+    employeeName: "",
+    bankName: "",
+    branchName: "",
+    accountType: "",
     accountNumber: "",
     employeeNumber: "",
     lastUpdate: ""
@@ -51,11 +55,16 @@ export default class ItemsList extends Component<ItemsListProps, ItemsListState>
     this.searchByHandleAccountMax = this.searchByHandleAccountMax.bind(this);
     this.cellButton = this.cellButton.bind(this);
     this.deleteButton = this.deleteButton.bind(this);
+    this.onCloseModal = this.onCloseModal.bind(this);
+    this.onBankSelected = this.onBankSelected.bind(this);
   }
 
   public componentDidMount() {
     if (this.props.getAccountList) {
       this.props.getAccountList("", "");
+    }
+    if (this.props.getBanks) {
+      this.props.getBanks();
     }
   }
 
@@ -70,6 +79,10 @@ export default class ItemsList extends Component<ItemsListProps, ItemsListState>
     if (this.props.deleteAccount) {
       this.props.deleteAccount(itemId);
     }
+  }
+
+  onCloseModal() {
+    this.setState({ show: false });
   }
 
   create() {
@@ -99,6 +112,12 @@ export default class ItemsList extends Component<ItemsListProps, ItemsListState>
     }
   }
 
+  onBankSelected(name: string) {
+    if (this.props.getBranches) {
+      this.props.getBranches(name);
+    }
+  }
+
   cellButton(cell: any, row: any, enumObject: any, rowIndex: number) {
     return (
        <button
@@ -121,12 +140,12 @@ export default class ItemsList extends Component<ItemsListProps, ItemsListState>
   );
 }
 
-  public render() {
-  if (!this.props.ItemsList) {
+public render() {
+  if (!this.props.itemsList) {
     return null;
   }
 
-  return <div>
+  return <div style={{margin: "40px 100px 40px 100px" }}>
     <table>
       <tbody>
         <tr>
@@ -165,40 +184,40 @@ export default class ItemsList extends Component<ItemsListProps, ItemsListState>
           </tr>
         </tbody>
     </table>
-    <BootstrapTable ref='table' data={ this.props.ItemsList } striped bordered hover>
-            <TableHeaderColumn dataField='id' isKey={ true } dataSort={ true }>
+    <BootstrapTable ref="table" data={ this.props.itemsList } striped bordered hover>
+            <TableHeaderColumn dataField="id" isKey={ true } dataSort={ true }>
               <FormattedMessage id="list.table.id" defaultMessage="ID" />
             </TableHeaderColumn>
-            <TableHeaderColumn dataField='accountHolder' dataSort={ true }>
+            <TableHeaderColumn dataField="accountHolderName" dataSort={ true }>
               <FormattedMessage id="list.table.accountHolder" defaultMessage="Account Holder's name" />
             </TableHeaderColumn>
-            <TableHeaderColumn dataField='employee' dataSort={ true }>
+            <TableHeaderColumn dataField="employeeName" dataSort={ true }>
               <FormattedMessage id="list.table.employee" defaultMessage="Employee" />
             </TableHeaderColumn>
-            <TableHeaderColumn dataField='bank' dataSort={ true }>
+            <TableHeaderColumn dataField="bankName" dataSort={ true }>
               <FormattedMessage id="list.table.bank" defaultMessage="Bank Name" />
             </TableHeaderColumn>
-            <TableHeaderColumn dataField='branch' dataSort={ true }>
+            <TableHeaderColumn dataField="branchName" dataSort={ true }>
               <FormattedMessage id="list.table.branch" defaultMessage="Branch Name" />
             </TableHeaderColumn>
-            <TableHeaderColumn dataField='type' dataSort={ true }>
+            <TableHeaderColumn dataField="accountType" dataSort={ true }>
               <FormattedMessage id="list.table.type" defaultMessage="Type" />
             </TableHeaderColumn>
-            <TableHeaderColumn dataField='accountNumber' dataSort={ true }>
+            <TableHeaderColumn dataField="accountNumber" dataSort={ true }>
               <FormattedMessage id="list.table.accountNumber" defaultMessage="Account Number" />
             </TableHeaderColumn>
-            <TableHeaderColumn dataField='employeeNumber' dataSort={ true }>
+            <TableHeaderColumn dataField="employeeNumber" dataSort={ true }>
               <FormattedMessage id="list.table.employeeNumber" defaultMessage="Employee Number" />
             </TableHeaderColumn>
-            <TableHeaderColumn dataField='lastUpdate' dataSort={ true }>
+            <TableHeaderColumn dataField="lastUpdate" dataSort={ true }>
               <FormattedMessage id="list.table.lastUpdate" defaultMessage="Last Update" />
             </TableHeaderColumn>
             <TableHeaderColumn
-              dataField='button'
+              dataField="button"
               dataFormat={this.cellButton}
             />
             <TableHeaderColumn
-              dataField='button'
+              dataField="button"
               dataFormat={this.deleteButton}
             />
     </BootstrapTable>
@@ -207,7 +226,11 @@ export default class ItemsList extends Component<ItemsListProps, ItemsListState>
       show={this.state.show}
       item={this.state.selectedItem}
       updateAccount={this.updateAccount}
+      onClose={this.onCloseModal}
       isEditing={this.state.selectedItem && this.state.selectedItem.id > 0 }
+      branches={this.props.branches}
+      banks={this.props.banks}
+      onBankSelected={this.onBankSelected}
        />
     </div>;
   }

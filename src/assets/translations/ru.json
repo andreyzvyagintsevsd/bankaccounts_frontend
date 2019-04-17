@@ -15,6 +15,7 @@
   "list.table.lastUpdate": "Время последнего обновления",
   "wizard.close": "Отменить",
   "wizard.next": "Далее",
+  "wizard.back": "Назад",
   "wizard.save": "Сохранить",
   "wizard.title.edit": "Редактировать",
   "wizard.title.create": "Создать"

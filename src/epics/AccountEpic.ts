@@ -16,7 +16,7 @@ const getAccountsListEpic: Epic<Action, Action, RootState> = (action$, store) =>
     filter(isActionOf(actions.getAccountListAction)),
     switchMap(action =>
       from(getAccountList(action.payload.minAccount, action.payload.maxAccount)).pipe(
-        map(actions.getAccountSuccessAction),
+        map((response) => actions.getAccountSuccessAction(response.data!.entries)),
         catchError(error => of(actions.getAccountFailAction(error)))
       ),
     )

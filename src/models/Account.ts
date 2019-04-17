@@ -1,10 +1,10 @@
 export interface Account {
   id: number;
-  accountHolder: string;
-  employee: string;
-  bank: string;
-  branch: string;
-  type: string;
+  accountHolderName: string;
+  employeeName: string;
+  bankName: string;
+  branchName: string;
+  accountType: string;
   accountNumber: string;
   employeeNumber: string;
   lastUpdate: string;

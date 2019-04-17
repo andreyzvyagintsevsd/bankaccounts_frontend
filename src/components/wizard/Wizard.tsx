@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import { Account } from '../../models/Account';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Dropdown } from 'react-bootstrap';
 import { FormattedMessage } from 'react-intl';
+import { WizardFooter } from './WizardFooter';
+import { FirstStep } from './FirstStep';
+import { SecondStep } from './SecondStep';
+import { getBanks, getBranches } from '../../utils/helpers';
 
 export interface WizardProps {
   item?: Account;
   updateAccount: Function;
   show: boolean;
   isEditing: boolean;
+  onClose: Function;
+  branches?: string[];
+  banks?: string[];
+  onBankSelected: (bank: string) => void;
 }
 
 interface WizardState {
@@ -25,42 +33,59 @@ class Wizard extends Component<WizardProps, WizardState> {
       isfirstStep: true,
       item: {
         id: 0,
-        accountHolder: "",
-        employee: "",
-        bank: "",
-        branch: "",
-        type: "",
+        accountHolderName: "",
+        employeeName: "",
+        bankName: "",
+        branchName: "",
+        accountType: "",
         accountNumber: "",
         employeeNumber: "",
         lastUpdate: ""
       } as Account
     };
 
-    this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleBack = this.handleBack.bind(this);
     this.handleNext = this.handleNext.bind(this);
+    this.handleSave = this.handleSave.bind(this);
 
     this.changeAccountName = this.changeAccountName.bind(this);
     this.changeEmployeeName = this.changeEmployeeName.bind(this);
-    this.changeBankName = this.changeBankName.bind(this);
     this.changeBranchName = this.changeBranchName.bind(this);
 
     this.changeType = this.changeType.bind(this);
     this.changeAccountNumber = this.changeAccountNumber.bind(this);
     this.changeEmployeeNumber = this.changeEmployeeNumber.bind(this);
+
+    this.onBankSelect = this.onBankSelect.bind(this);
   }
 
   componentWillReceiveProps(nextProps: WizardProps) {
-    this.setState({
-      show: nextProps.show,
-      isfirstStep: true,
-      item: nextProps.item
-    });
+    if (this.props.branches !== nextProps.branches) {
+      let item = { ...this.state.item } as Account;
+      item.branchName = "";
+      this.setState({ item });
+    } else {
+      this.setState({
+        show: nextProps.show,
+        isfirstStep: true,
+        item: nextProps.item
+      });
+    }
+  }
+
+  onBankSelect(eventKey: any, event: any) {
+    let bank = event.target.text;
+    let item = { ...this.state.item } as Account;
+    item.bankName = bank;
+    this.setState({ item });
+    this.props.onBankSelected(bank);
   }
 
   handleClose() {
-    this.setState({ show: false });
+    if (this.props.onClose) {
+      this.props.onClose();
+    }
   }
 
   handleNext() {
@@ -77,33 +102,24 @@ class Wizard extends Component<WizardProps, WizardState> {
   handleSave() {
     const item = this.state.item;
     this.props.updateAccount(item);
-  }
-
-  handleShow() {
-    this.setState({ show: true });
+    this.handleClose();
   }
 
   changeAccountName(e: React.ChangeEvent<HTMLInputElement>) {
     let item = { ...this.state.item } as Account;
-    item.accountHolder = e.target.value as string;
+    item.accountHolderName = e.target.value as string;
     this.setState({ item });
   }
 
-  changeBankName(e: any) {
+  changeBranchName(eventKey: any, event: any) {
     let item = { ...this.state.item } as Account;
-    item.bank = e.target.value as string;
-    this.setState({ item });
-  }
-
-  changeBranchName(e: any) {
-    let item = { ...this.state.item } as Account;
-    item.branch = e.target.value as string;
+    item.branchName = event.target.text;
     this.setState({ item });
   }
 
   changeEmployeeName(e: any) {
     let item = { ...this.state.item } as Account;
-    item.employee = e.target.value as string;
+    item.employeeName = e.target.value as string;
     this.setState({ item });
   }
 
@@ -115,7 +131,7 @@ class Wizard extends Component<WizardProps, WizardState> {
 
   changeType(e: any) {
     let item = { ...this.state.item } as Account;
-    item.type = e.target.value as string;
+    item.accountType = e.target.value as string;
     this.setState({ item });
   }
 
@@ -126,6 +142,8 @@ class Wizard extends Component<WizardProps, WizardState> {
   }
 
   render() {
+    let banks = getBanks(this.props.banks, this.props.item!.bankName);
+    let branches = getBranches(this.props.branches, this.props.item!.branchName);
     return <Modal
               show={this.state.show}
               onHide={this.handleClose}
@@ -139,124 +157,32 @@ class Wizard extends Component<WizardProps, WizardState> {
       </Modal.Header>
       <Modal.Body>
       { this.state.isfirstStep === true ?
-       <table>
-       <tbody>
-         <tr>
-           <td>
-            <legend>
-              <FormattedMessage id="list.table.accountHolder" defaultMessage="Account Holder's name" />
-            </legend>
-           </td>
-             <td>
-                   <input
-                     className="form-control"
-                     style={{width: "200px"}}
-                     value={this.state.item!.accountHolder}
-                     onChange={this.changeAccountName} />
-             </td>
-             <td>
-                 <legend>
-                    <FormattedMessage id="list.table.employee" defaultMessage="Employee" />
-                 </legend>
-              </td>
-              <td>
-                 <input
-                   className="form-control"
-                   style={{width: "200px"}}
-                   value={this.state.item!.employee}
-                   onChange={this.changeEmployeeName} />
-             </td>
-           </tr>
-         <tr>
-             <td>
-                 <legend>
-                    <FormattedMessage id="list.table.bank" defaultMessage="Bank Name" />
-                  </legend>
-              </td>
-              <td>
-                 <input
-                   className="form-control"
-                   style={{width: "200px"}}
-                   value={this.state.item!.bank}
-                   onChange={this.changeBankName} />
-             </td>
-           <td>
-            <legend>
-              <FormattedMessage id="list.table.branch" defaultMessage="Branch Name" />
-            </legend>
-           </td>
-             <td>
-                   <input
-                     className="form-control"
-                     style={{width: "200px"}}
-                     value={this.state.item!.branch}
-                     onChange={this.changeBranchName} />
-             </td>
-           </tr>
-         </tbody>
-     </table>
-        :
-        <table>
-        <tbody>
-          <tr>
-            <td>
-             <legend>
-              <FormattedMessage id="list.table.accountNumber" defaultMessage="Account Number" />
-             </legend>
-            </td>
-              <td>
-                    <input
-                      className="form-control"
-                      style={{width: "200px"}}
-                      value={this.state.item!.accountNumber}
-                      onChange={this.changeAccountNumber} />
-              </td>
-              <td>
-                  <legend>
-                    <FormattedMessage id="list.table.employeeNumber" defaultMessage="Employee Number" />
-                  </legend>
-               </td>
-               <td>
-                  <input
-                    className="form-control"
-                    style={{width: "200px"}}
-                    value={this.state.item!.employeeNumber}
-                    onChange={this.changeEmployeeNumber} />
-              </td>
-            </tr>
-          <tr>
-              <td>
-                  <legend>
-                    <FormattedMessage id="list.table.type" defaultMessage="Type" />
-                  </legend>
-               </td>
-               <td>
-                  <input
-                    className="form-control"
-                    style={{width: "200px"}}
-                    value={this.state.item!.type}
-                    onChange={this.changeType} />
-              </td>
-            </tr>
-          </tbody>
-      </table>
-        }
+        <FirstStep
+          accountHolderName={this.state.item!.accountHolderName}
+          changeAccountName={this.changeAccountName}
+          employeeName={this.state.item!.employeeName}
+          bankName={this.state.item!.bankName}
+          banks={banks}
+          branches={branches}
+          changeEmployeeName={this.changeEmployeeName}
+          onBankSelect={this.onBankSelect}
+          branchName={this.state.item!.branchName}
+          changeBranchName={this.changeBranchName} />
+        : <SecondStep
+            accountNumber={this.state.item!.accountNumber}
+            changeAccountNumber={this.changeAccountNumber}
+            employeeNumber={this.state.item!.employeeNumber}
+            changeEmployeeNumber={this.changeEmployeeNumber}
+            accountType={this.state.item!.accountType}
+            changeType={this.changeType} /> }
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={this.handleClose}>
-          <FormattedMessage id="wizard.close" defaultMessage="Close" />
-        </Button>
-        {
-          this.state.isfirstStep === true ?
-            <Button variant="primary" onClick={this.handleNext}>
-              <FormattedMessage id="wizard.next" defaultMessage="Next" />
-            </Button>
-          :
-            <Button variant="primary" onClick={this.handleNext}>
-              <FormattedMessage id="wizard.save" defaultMessage="Save Changes" />
-            </Button>
-        }
-      </Modal.Footer>
+      <WizardFooter
+        isfirstStep={this.state.isfirstStep}
+        handleClose={this.handleClose}
+        handleBack={this.handleBack}
+        handleNext={this.handleNext}
+        handleSave={this.handleSave}
+       />
     </Modal>;
   }
 }
