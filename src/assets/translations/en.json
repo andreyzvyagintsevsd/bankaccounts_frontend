@@ -1,0 +1,21 @@
+{
+  "list.buttons.create": "Create",
+  "list.buttons.delete": "Delete",
+  "list.buttons.edit": "Edit",
+  "list.filters.min": "Min account:",
+  "list.filters.max": "Max account:",
+  "list.table.id": "ID",
+  "list.table.accountHolder": "Account Holder's name",
+  "list.table.employee": "Employee",
+  "list.table.bank": "Bank Name",
+  "list.table.branch": "Branch Name",
+  "list.table.type": "Type",
+  "list.table.accountNumber": "Account Number",
+  "list.table.employeeNumber": "Employee Number",
+  "list.table.lastUpdate": "Last Update",
+  "wizard.close": "Close",
+  "wizard.next": "Next",
+  "wizard.save": "Save Changes",
+  "wizard.title.edit": "Edit Account",
+  "wizard.title.create": "Create Account"
+}

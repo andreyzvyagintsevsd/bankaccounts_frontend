@@ -1,0 +1,21 @@
+{
+  "list.buttons.create": "Создать",
+  "list.buttons.delete": "Удалить",
+  "list.buttons.edit": "Редактировать",
+  "list.filters.min": "Минимальный номер:",
+  "list.filters.max": "Максимальный номер:",
+  "list.table.id": "Идентификатор",
+  "list.table.accountHolder": "Имя владельца счета",
+  "list.table.employee": "Работник",
+  "list.table.bank": "Название банка",
+  "list.table.branch": "Название филиала",
+  "list.table.type": "Тип",
+  "list.table.accountNumber": "Номер счета",
+  "list.table.employeeNumber": "Номер работника",
+  "list.table.lastUpdate": "Время последнего обновления",
+  "wizard.close": "Отменить",
+  "wizard.next": "Далее",
+  "wizard.save": "Сохранить",
+  "wizard.title.edit": "Редактировать",
+  "wizard.title.create": "Создать"
+}

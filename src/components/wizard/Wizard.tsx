@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Account } from '../../models/Account';
 import { Modal, Button } from 'react-bootstrap';
+import { FormattedMessage } from 'react-intl';
 
 export interface WizardProps {
   item?: Account;
   updateAccount: Function;
   show: boolean;
+  isEditing: boolean;
 }
 
 interface WizardState {
@@ -129,7 +131,11 @@ class Wizard extends Component<WizardProps, WizardState> {
               onHide={this.handleClose}
               size="lg">
       <Modal.Header closeButton>
-        <Modal.Title>Edit Account</Modal.Title>
+        <Modal.Title>
+          { this.props.isEditing ?
+            <FormattedMessage id="wizard.title.edit" defaultMessage="Edit" />
+            : <FormattedMessage id="wizard.title.create" defaultMessage="Create" /> }
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
       { this.state.isfirstStep === true ?
@@ -137,7 +143,9 @@ class Wizard extends Component<WizardProps, WizardState> {
        <tbody>
          <tr>
            <td>
-            <legend>Account Holder's name</legend>
+            <legend>
+              <FormattedMessage id="list.table.accountHolder" defaultMessage="Account Holder's name" />
+            </legend>
            </td>
              <td>
                    <input
@@ -147,7 +155,9 @@ class Wizard extends Component<WizardProps, WizardState> {
                      onChange={this.changeAccountName} />
              </td>
              <td>
-                 <legend>Employee name</legend>
+                 <legend>
+                    <FormattedMessage id="list.table.employee" defaultMessage="Employee" />
+                 </legend>
               </td>
               <td>
                  <input
@@ -159,7 +169,9 @@ class Wizard extends Component<WizardProps, WizardState> {
            </tr>
          <tr>
              <td>
-                 <legend>Bank name</legend>
+                 <legend>
+                    <FormattedMessage id="list.table.bank" defaultMessage="Bank Name" />
+                  </legend>
               </td>
               <td>
                  <input
@@ -169,7 +181,9 @@ class Wizard extends Component<WizardProps, WizardState> {
                    onChange={this.changeBankName} />
              </td>
            <td>
-            <legend>Branch name</legend>
+            <legend>
+              <FormattedMessage id="list.table.branch" defaultMessage="Branch Name" />
+            </legend>
            </td>
              <td>
                    <input
@@ -186,7 +200,9 @@ class Wizard extends Component<WizardProps, WizardState> {
         <tbody>
           <tr>
             <td>
-             <legend>Account Number</legend>
+             <legend>
+              <FormattedMessage id="list.table.accountNumber" defaultMessage="Account Number" />
+             </legend>
             </td>
               <td>
                     <input
@@ -196,7 +212,9 @@ class Wizard extends Component<WizardProps, WizardState> {
                       onChange={this.changeAccountNumber} />
               </td>
               <td>
-                  <legend>Employee number</legend>
+                  <legend>
+                    <FormattedMessage id="list.table.employeeNumber" defaultMessage="Employee Number" />
+                  </legend>
                </td>
                <td>
                   <input
@@ -208,7 +226,9 @@ class Wizard extends Component<WizardProps, WizardState> {
             </tr>
           <tr>
               <td>
-                  <legend>Type</legend>
+                  <legend>
+                    <FormattedMessage id="list.table.type" defaultMessage="Type" />
+                  </legend>
                </td>
                <td>
                   <input
@@ -224,16 +244,16 @@ class Wizard extends Component<WizardProps, WizardState> {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={this.handleClose}>
-          Close
+          <FormattedMessage id="wizard.close" defaultMessage="Close" />
         </Button>
         {
           this.state.isfirstStep === true ?
             <Button variant="primary" onClick={this.handleNext}>
-              Next
+              <FormattedMessage id="wizard.next" defaultMessage="Next" />
             </Button>
           :
             <Button variant="primary" onClick={this.handleNext}>
-              Save Changes
+              <FormattedMessage id="wizard.save" defaultMessage="Save Changes" />
             </Button>
         }
       </Modal.Footer>

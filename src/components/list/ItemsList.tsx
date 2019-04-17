@@ -4,6 +4,7 @@ import { Table, Button } from 'react-bootstrap';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
 import Wizard from '../wizard/Wizard';
+import { FormattedMessage } from "react-intl";
 
 export interface ItemsListProps {
   ItemsList?: Account[];
@@ -103,7 +104,9 @@ export default class ItemsList extends Component<ItemsListProps, ItemsListState>
        <button
           type="button"
           onClick={() => this.edit(row)}
-       >Edit</button>
+       >
+       <FormattedMessage id="list.buttons.edit"
+                         defaultMessage="Edit" /></button>
     );
  }
 
@@ -112,12 +115,13 @@ export default class ItemsList extends Component<ItemsListProps, ItemsListState>
      <button
         type="button"
         onClick={() => this.delete(row.id)}
-     >Delete</button>
+     >
+     <FormattedMessage id="list.buttons.delete"
+                       defaultMessage="Delete" /></button>
   );
 }
 
   public render() {
-    
   if (!this.props.ItemsList) {
     return null;
   }
@@ -128,12 +132,16 @@ export default class ItemsList extends Component<ItemsListProps, ItemsListState>
         <tr>
           <td>
             <Button variant="primary" onClick={() => this.create()}>
-                      Create
+              <FormattedMessage id="list.buttons.create"
+                                defaultMessage="Create" />
             </Button>
           </td>
             <td>
               <div>
-                  <legend>Min account:</legend>
+                  <legend>
+                    <FormattedMessage id="list.filters.min"
+                                defaultMessage="Min account:" />
+                  </legend>
                   <input
                     className="form-control"
                     type="number"
@@ -143,7 +151,10 @@ export default class ItemsList extends Component<ItemsListProps, ItemsListState>
             </td>
             <td>
               <div>
-                <legend>Max account:</legend>
+                <legend>
+                  <FormattedMessage id="list.filters.max"
+                                defaultMessage="Max account:" />
+                </legend>
                 <input
                   className="form-control"
                   style={{width: "200px", display: "inline"}}
@@ -155,15 +166,33 @@ export default class ItemsList extends Component<ItemsListProps, ItemsListState>
         </tbody>
     </table>
     <BootstrapTable ref='table' data={ this.props.ItemsList } striped bordered hover>
-            <TableHeaderColumn dataField='id' isKey={ true } dataSort={ true }>ID</TableHeaderColumn>
-            <TableHeaderColumn dataField='accountHolder' dataSort={ true }>Account Holder's name</TableHeaderColumn>
-            <TableHeaderColumn dataField='employee' dataSort={ true }>Employee</TableHeaderColumn>
-            <TableHeaderColumn dataField='bank' dataSort={ true }>Bank Name</TableHeaderColumn>
-            <TableHeaderColumn dataField='branch' dataSort={ true }>Branch Name</TableHeaderColumn>
-            <TableHeaderColumn dataField='type' dataSort={ true }>Type</TableHeaderColumn>
-            <TableHeaderColumn dataField='accountNumber' dataSort={ true }>Account Number</TableHeaderColumn>
-            <TableHeaderColumn dataField='employeeNumber' dataSort={ true }>Emplyee Number</TableHeaderColumn>
-            <TableHeaderColumn dataField='lastUpdate' dataSort={ true }>Last Update</TableHeaderColumn>
+            <TableHeaderColumn dataField='id' isKey={ true } dataSort={ true }>
+              <FormattedMessage id="list.table.id" defaultMessage="ID" />
+            </TableHeaderColumn>
+            <TableHeaderColumn dataField='accountHolder' dataSort={ true }>
+              <FormattedMessage id="list.table.accountHolder" defaultMessage="Account Holder's name" />
+            </TableHeaderColumn>
+            <TableHeaderColumn dataField='employee' dataSort={ true }>
+              <FormattedMessage id="list.table.employee" defaultMessage="Employee" />
+            </TableHeaderColumn>
+            <TableHeaderColumn dataField='bank' dataSort={ true }>
+              <FormattedMessage id="list.table.bank" defaultMessage="Bank Name" />
+            </TableHeaderColumn>
+            <TableHeaderColumn dataField='branch' dataSort={ true }>
+              <FormattedMessage id="list.table.branch" defaultMessage="Branch Name" />
+            </TableHeaderColumn>
+            <TableHeaderColumn dataField='type' dataSort={ true }>
+              <FormattedMessage id="list.table.type" defaultMessage="Type" />
+            </TableHeaderColumn>
+            <TableHeaderColumn dataField='accountNumber' dataSort={ true }>
+              <FormattedMessage id="list.table.accountNumber" defaultMessage="Account Number" />
+            </TableHeaderColumn>
+            <TableHeaderColumn dataField='employeeNumber' dataSort={ true }>
+              <FormattedMessage id="list.table.employeeNumber" defaultMessage="Employee Number" />
+            </TableHeaderColumn>
+            <TableHeaderColumn dataField='lastUpdate' dataSort={ true }>
+              <FormattedMessage id="list.table.lastUpdate" defaultMessage="Last Update" />
+            </TableHeaderColumn>
             <TableHeaderColumn
               dataField='button'
               dataFormat={this.cellButton}
@@ -178,6 +207,7 @@ export default class ItemsList extends Component<ItemsListProps, ItemsListState>
       show={this.state.show}
       item={this.state.selectedItem}
       updateAccount={this.updateAccount}
+      isEditing={this.state.selectedItem && this.state.selectedItem.id > 0 }
        />
     </div>;
   }
