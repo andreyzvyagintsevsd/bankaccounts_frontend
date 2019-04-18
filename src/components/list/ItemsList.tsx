@@ -4,7 +4,6 @@ import Wizard from "../wizard/Wizard";
 import { ItemsListHeader } from "./ItemsListHeader";
 import { ItemsTable } from "./Table";
 import { getDefaultAccount } from "./helpers";
-import { CellButton } from "./CellButton";
 import { ItemsListProps, ItemsListState } from "./ItemsListInterfaces";
 
 export default class ItemsList extends Component<ItemsListProps, ItemsListState> {
@@ -20,8 +19,8 @@ export default class ItemsList extends Component<ItemsListProps, ItemsListState>
   }
 
   public componentDidMount() {
-    return (this.props.getAccountList && this.props.getAccountList("", ""))
-        || (this.props.getBanks && this.props.getBanks());
+    let get = (this.props.getAccountList && this.props.getAccountList("", ""));
+    let banks = (this.props.getBanks && this.props.getBanks());
   }
 
   public render() {
@@ -31,7 +30,7 @@ export default class ItemsList extends Component<ItemsListProps, ItemsListState>
       <ItemsListHeader create={() => this.setState({ selectedItem: getDefaultAccount(), show: true })}
           filter={(min, max) => this.props.getAccountList && this.props.getAccountList(min, max)}/>
       <ItemsTable
-          cellButton={() => <CellButton editAccount={(row) => this.setState({ selectedItem: row, show: true })} />}
+          editAccount={(row) => this.setState({ selectedItem: row, show: true })}
           deleteAccount={this.props.deleteAccount}
           itemsList={this.props.itemsList}  />
       <Wizard
