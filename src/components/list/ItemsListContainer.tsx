@@ -14,7 +14,6 @@ export interface PayloadAction {
   payload: any;
 }
 
-import { ItemsListProps } from "./ItemsList";
 import ItemsList  from "./ItemsList";
 
 interface OwnProps {

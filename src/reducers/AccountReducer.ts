@@ -10,17 +10,24 @@ export interface AccountState {
   readonly loaded: boolean;
   readonly accounts?: Account[];
   readonly item?: Account;
+  readonly min: string;
+  readonly max: string;
 }
 
 const initialState = {
   loaded: false,
   accounts: [],
-  item: undefined
+  item: undefined,
+  min: "",
+  max: ""
 };
 
 export const accountReducer = (state: AccountState = initialState, action: Action): AccountState => {
 
   switch (action.type) {
+
+    case getType(actions.getAccountListAction):
+      return Object.assign({}, state, { min: action.payload.minAccount, max: action.payload.minAccount });
 
     case getType(actions.getAccountSuccessAction):
       return Object.assign({}, state, { accounts: action.payload });

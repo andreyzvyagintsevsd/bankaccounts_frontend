@@ -2,6 +2,7 @@
   "list.buttons.create": "Создать",
   "list.buttons.delete": "Удалить",
   "list.buttons.edit": "Редактировать",
+  "list.buttons.filter": "Фильтровать",
   "list.filters.min": "Минимальный номер:",
   "list.filters.max": "Максимальный номер:",
   "list.table.id": "Идентификатор",

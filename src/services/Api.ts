@@ -1,10 +1,14 @@
-import { Account } from "./../models/Account";
+import { Account } from "../models/Account";
 
 const url = "https://localhost:44341/api/graphql";
 
 const getAccountList = (minAccount: string, maxAccount: string) => {
+  let query = "entries";
+   query += !!minAccount && !!maxAccount ? `(minAccount: ${minAccount}, maxAccount: ${maxAccount})`: "";
+   query += !!minAccount && !maxAccount ? `(minAccount: ${minAccount})`: "";
+   query += !minAccount && !!maxAccount ? `(maxAccount: ${maxAccount})`: "";
   // tslint:disable-next-line:max-line-length
-  return fetchRequest(JSON.stringify({ "Query": "{ entries { id, bankName, accountHolderName, employeeName, branchName, accountType, accountNumber, employeeNumber, lastUpdate } }" }));
+  return fetchRequest(JSON.stringify({ "Query": `{ ${query} { id, bankName, accountHolderName, employeeName, branchName, accountType, accountNumber, employeeNumber, lastUpdate } }` }));
 };
 
 const getBanks = () => {
@@ -26,9 +30,9 @@ const updateAccount = (account: Account) => {
 
 function fetchRequest(body: string) {
   return fetch(url,  {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: body
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: body
     })
     .then(response => response.json());
 }

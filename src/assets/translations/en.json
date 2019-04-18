@@ -2,6 +2,7 @@
   "list.buttons.create": "Create",
   "list.buttons.delete": "Delete",
   "list.buttons.edit": "Edit",
+  "list.buttons.filter": "Filter",
   "list.filters.min": "Min account:",
   "list.filters.max": "Max account:",
   "list.table.id": "ID",

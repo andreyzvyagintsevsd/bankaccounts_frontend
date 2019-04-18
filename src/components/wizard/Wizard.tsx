@@ -5,7 +5,6 @@ import { FormattedMessage } from 'react-intl';
 import { WizardFooter } from './WizardFooter';
 import { FirstStep } from './FirstStep';
 import { SecondStep } from './SecondStep';
-import { getBanks, getBranches } from '../../utils/helpers';
 
 export interface WizardProps {
   item?: Account;
@@ -75,11 +74,8 @@ class Wizard extends Component<WizardProps, WizardState> {
   }
 
   onBankSelect(eventKey: any, event: any) {
-    let bank = event.target.text;
-    let item = { ...this.state.item } as Account;
-    item.bankName = bank;
-    this.setState({ item });
-    this.props.onBankSelected(bank);
+    this.changeProperty("bankName", event.target.text);
+    this.props.onBankSelected(event.target.text);
   }
 
   handleClose() {
@@ -106,48 +102,38 @@ class Wizard extends Component<WizardProps, WizardState> {
   }
 
   changeAccountName(e: React.ChangeEvent<HTMLInputElement>) {
-    let item = { ...this.state.item } as Account;
-    item.accountHolderName = e.target.value as string;
-    this.setState({ item });
+    this.changeProperty("accountHolderName", e.target.value);
   }
 
   changeBranchName(eventKey: any, event: any) {
-    let item = { ...this.state.item } as Account;
-    item.branchName = event.target.text;
-    this.setState({ item });
+    this.changeProperty("branchName", event.target.text);
   }
 
-  changeEmployeeName(e: any) {
-    let item = { ...this.state.item } as Account;
-    item.employeeName = e.target.value as string;
-    this.setState({ item });
+  changeEmployeeName(e:  React.ChangeEvent<HTMLInputElement>) {
+    this.changeProperty("employeeName", e.target.value);
   }
 
-  changeAccountNumber(e: any) {
-    let item = { ...this.state.item } as Account;
-    item.accountNumber = e.target.value as string;
-    this.setState({ item });
+  changeAccountNumber(e:  React.ChangeEvent<HTMLInputElement>) {
+    this.changeProperty("accountNumber", e.target.value);
   }
 
-  changeType(e: any) {
-    let item = { ...this.state.item } as Account;
-    item.accountType = e.target.value as string;
-    this.setState({ item });
+  changeType(e:  React.ChangeEvent<HTMLInputElement>) {
+    this.changeProperty("accountType", e.target.value);
   }
 
-  changeEmployeeNumber(e: any) {
-    let item = { ...this.state.item } as Account;
-    item.employeeNumber = e.target.value as string;
-    this.setState({ item });
+  changeEmployeeNumber(e:  React.ChangeEvent<HTMLInputElement>) {
+    this.changeProperty("employeeNumber", e.target.value);
+  }
+
+  changeProperty(prop: string, value: string) {
+    let item = { ...this.state.item } as any;
+    item[prop] = value;
+    let account = item as Account;
+    this.setState({ item: account });
   }
 
   render() {
-    let banks = getBanks(this.props.banks, this.props.item!.bankName);
-    let branches = getBranches(this.props.branches, this.props.item!.branchName);
-    return <Modal
-              show={this.state.show}
-              onHide={this.handleClose}
-              size="lg">
+    return <Modal show={this.state.show} onHide={this.handleClose} size="lg">
       <Modal.Header closeButton>
         <Modal.Title>
           { this.props.isEditing ?
@@ -162,8 +148,8 @@ class Wizard extends Component<WizardProps, WizardState> {
           changeAccountName={this.changeAccountName}
           employeeName={this.state.item!.employeeName}
           bankName={this.state.item!.bankName}
-          banks={banks}
-          branches={branches}
+          banks={this.props.banks}
+          branches={this.props.branches}
           changeEmployeeName={this.changeEmployeeName}
           onBankSelect={this.onBankSelect}
           branchName={this.state.item!.branchName}

@@ -1,11 +1,12 @@
 import { FormattedMessage } from "react-intl";
 import * as React from "react";
 import { Dropdown } from "react-bootstrap";
+import { DropdownItemsList } from "./DropdownItemsList";
 
 interface FirstStepProps {
   accountHolderName: string;
-  banks:  JSX.Element[];
-  branches:  JSX.Element[];
+  banks?:  string[];
+  branches?:  string[];
   changeAccountName: (event: any) => void;
   employeeName: string;
   changeEmployeeName: (event: any) => void;
@@ -28,20 +29,10 @@ export const FirstStep: React.SFC<FirstStepProps> = (props) => {
      </tr>
    <tr>
        <td><FormattedMessage id="list.table.bank" defaultMessage="Bank Name" /></td>
-        <td><Dropdown onSelect={props.onBankSelect}>
-              <Dropdown.Toggle id="dropdown-custom-1">{props.bankName}</Dropdown.Toggle>
-              <Dropdown.Menu className="super-colors">
-                {props.banks}
-              </Dropdown.Menu>
-          </Dropdown>
+        <td><DropdownItemsList items={props.banks} name={props.bankName} onSelect={props.onBankSelect}/>
        </td>
      <td><FormattedMessage id="list.table.branch" defaultMessage="Branch Name" /></td>
-       <td><Dropdown onSelect={props.changeBranchName}>
-            <Dropdown.Toggle id="dropdown-custom-1">{props.branchName}</Dropdown.Toggle>
-            <Dropdown.Menu className="super-colors">
-              {props.branches}
-            </Dropdown.Menu>
-          </Dropdown>
+       <td><DropdownItemsList items={props.branches} name={props.branchName} onSelect={props.changeBranchName}/>
        </td>
      </tr>
    </tbody>

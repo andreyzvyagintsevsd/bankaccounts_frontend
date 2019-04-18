@@ -27,7 +27,7 @@ const getAccountsListEpic: Epic<Action, Action, RootState> = (action$, store) =>
     filter(isActionOf(actions.deleteAccountAction)),
     switchMap(action =>
       from(deleteAccount(action.payload)).pipe(
-        map(() => actions.getAccountListAction("", "")),
+        map(() => actions.getAccountListAction(store.value.account.min, store.value.account.max)),
         catchError(error => of(actions.getAccountFailAction(error)))
       ),
     )
