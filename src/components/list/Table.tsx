@@ -11,19 +11,19 @@ interface ItemsTableProps {
 }
 
 export class ItemsTable extends React.Component<ItemsTableProps> {
-  constructor(props: ItemsTableProps){
+  constructor(props: ItemsTableProps) {
     super(props);
   }
 
   deleteButton(cell: any, row: any, enumObject: any, rowIndex: number) {
-    return <button type="button"
+    return <button id="deleteButton" type="button"
           onClick={() => this.props.deleteAccount && this.props.deleteAccount(row.id) } >
        <FormattedMessage id="list.buttons.delete"
                          defaultMessage="Delete" /></button>;
  }
 
  cellButton(cell: any, row: any, enumObject: any, rowIndex: number) {
-  return <button type="button" onClick={() => this.props.editAccount(row)} >
+  return <button id="cellButton" type="button" onClick={() => this.props.editAccount(row)} >
       <FormattedMessage id="list.buttons.edit"
                        defaultMessage="Edit" /></button>;
  }
