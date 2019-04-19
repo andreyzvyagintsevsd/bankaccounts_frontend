@@ -10,7 +10,7 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -19,7 +19,8 @@
     "noEmit": true,
     "jsx": "preserve",
     "sourceMap": true,
-    "inlineSourceMap": true
+    "inlineSourceMap": true,
+    "noImplicitAny": false
   },
   "typeRoots": [
     "./node_modules/@types",
@@ -27,5 +28,29 @@
   ]  ,   
   "include": [
     "src"
-  ]
+  ],
+  
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "mapCoverage": true,
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    }
+  }
 }

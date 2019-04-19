@@ -11,9 +11,9 @@ export const DropdownItemsList: React.SFC<DropdownItemsListProps> = (props) => {
     const items = props.items ?
     props.items.map((item, index) => {
         if (item === props.name) {
-          return <Dropdown.Item eventKey={index} active>{item}</Dropdown.Item>;
+          return <Dropdown.Item eventKey={index} key={item} active="true">{item}</Dropdown.Item>;
         }
-        return <Dropdown.Item eventKey={index} active>{item}</Dropdown.Item>;
+        return <Dropdown.Item eventKey={index} key={item}>{item}</Dropdown.Item>;
       }) : [];
       return <Dropdown onSelect={props.onSelect}>
                 <Dropdown.Toggle id="dropdown-custom-1">{props.name}</Dropdown.Toggle>

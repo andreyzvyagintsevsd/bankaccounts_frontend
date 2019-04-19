@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Wizard from '../components/wizard/Wizard';
-import { shallow } from 'enzyme';
+import { shallow, ReactWrapper, ShallowWrapper } from 'enzyme';
 import ItemsListContainer from '../components/list/ItemsListContainer';
 import { FirstStep } from '../components/wizard/FirstStep';
 
@@ -10,7 +10,7 @@ const onCloseFn = jest.fn();
 const updateAccountFn = jest.fn();
 
 describe('Wizard', () => {
-  let wrapper;
+  let wrapper: any;
   let item;
   let banks = ["Bank", "Sber"];
   let branches = ["BranchA", "BranchB"];
@@ -118,4 +118,10 @@ describe('Wizard', () => {
     wrapper.instance().changeProperty("id", "2222");
     expect(wrapper.state().item.id).toEqual("2222");
   });
+
+  // it("isEditing is false", () => {
+  //   // wrapper.setState({isEditing: false});
+  //   expect(wrapper.find("#wizard.title.edit").length).toEqual(1);
+  //   // expect(wrapper.findWhere((n: ReactWrapper) => n.prop("defaultMessage") === "Edit").length).toEqual(1);
+  // });
 });

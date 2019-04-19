@@ -9,7 +9,7 @@ const editAccountFn = jest.fn();
 const deleteAccountFn = jest.fn();
 
 describe('ItemsTable', ()=> {
-  let wrapper;
+  let wrapper: ShallowWrapper;
   let items = [{
     id: 1,
     accountHolderName: "Ivanov",

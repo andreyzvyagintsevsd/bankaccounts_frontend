@@ -1,12 +1,12 @@
 import React from 'react';
 import {ItemsListHeader} from '../components/list/ItemsListHeader';
-import { shallow, mount } from 'enzyme';
+import { shallow, mount, ShallowWrapper } from 'enzyme';
 
 const filterFn = jest.fn();
 const createFn = jest.fn();
 
 describe('ItemsListHeader', () => {
-  let wrapper;
+  let wrapper: any;
   beforeEach(() => wrapper = shallow(<ItemsListHeader filter={filterFn} create={createFn} />));
 
   it("shoud render a table", () => {
