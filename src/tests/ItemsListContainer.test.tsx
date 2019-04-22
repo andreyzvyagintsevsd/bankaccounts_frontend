@@ -43,7 +43,20 @@ describe("ItemsListContainer", () => {
 
 
   it("mapStateToProps hould have all fields", () => {
-    expect(mapStateToProps(null)).toEqual(mapStateToPropsExpected(null).);
+    let state = {
+      account: {
+        accounts: [],
+        loaded: false,
+        min: "",
+        max: ""
+      },
+      dictionary: {
+        banks: [],
+        branches: [],
+        loaded: false
+      }
+    };
+    expect(mapStateToProps(state)).toEqual(mapStateToPropsExpected(state));
   });
 
   it("mapDispatchToProps hould have all methods", () => {

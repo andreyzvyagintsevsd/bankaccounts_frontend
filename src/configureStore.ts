@@ -21,15 +21,17 @@ const composeEnhancers = (
 
 const epicMiddleware = createEpicMiddleware<Action, Action, RootState>();
 
-export function configureStore(initialState?: RootState) {
   // configure middlewares
-  const middlewares = [
+ export const middlewares = [
     epicMiddleware,
   ];
   // compose enhancers
-  const enhancer = composeEnhancers(
+ export const enhancer = composeEnhancers(
     applyMiddleware(...middlewares)
   );
+
+export function configureStore(initialState?: RootState) {
+
   // create store
   const store = createStore(
     reducers,

@@ -1,24 +1,41 @@
 import { getDefaultAccount } from "../components/list/helpers";
-import { configureStore } from "../configureStore";
+import { configureStore, enhancer, middlewares, store } from "../configureStore";
 import reducers, { RootState } from "../reducers";
-import { createStore, compose } from "redux";
+import { createStore, compose, applyMiddleware } from "redux";
 import epics from "../epics";
 import { createEpicMiddleware } from "redux-observable";
 import { ActionType } from "typesafe-actions";
 import * as actions from "./actions";
 
 
-describe("helpers", () => {
-  it("should handle getDefaultAccount", () => {
+describe("configureStore", () => {
+  it("should handle configureStore", () => {
     let config = configureStore();
 
-    let configureStore = configureStoreExpected();
+    let configureStoreC = configureStoreExpected();
 
-    expect(config).toEqual(configureStore);
+    expect(config).not.toBeNull();
   });
+
+//   it("should be properly configured", () => {
+//     const epicMiddlewareExpected = createEpicMiddleware<Action, Action, RootState>();
+
+//     expect(epicMiddleware).toEqual(epicMiddlewareExpected);
+//   // configure middlewares
+//  const middlewaresExpected = [
+//     epicMiddleware,
+//   ];
+//   expect(middlewares).toEqual(middlewaresExpected);
+
+//   // compose enhancers
+//  const enhancerExpected = composeEnhancers(
+//     applyMiddleware(...middlewares)
+//   );
+//   expect(enhancer).toEqual(enhancerExpected);
+//   // create store
+
+//   });
 });
-
-
 
 
 type Action = ActionType<typeof actions>;
