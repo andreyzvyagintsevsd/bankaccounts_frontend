@@ -30,6 +30,13 @@ describe('ItemsTable', ()=> {
     expect(wrapper.find(BootstrapTable).length).toEqual(1);
   });
 
+  it('should contain a empty itemsList', () => {
+    wrapper = mount(<ItemsTable itemsList={null}
+      editAccount={editAccountFn}
+      deleteAccount={deleteAccountFn} />);
+    expect(wrapper.find(BootstrapTable).length).toEqual(1);
+  });
+
   it('should contain a EditButton', () => {
     expect(wrapper.find("button#cellButton").length).toEqual(1);
   });

@@ -207,4 +207,16 @@ describe('Wizard', () => {
     wrapper.setProps({branches: [], show: true});
     expect(wrapper.state().show).toEqual(true);
   });
+
+  it("componentWillReceiveProps with null branches array (false)", () => {
+    let wrapper = shallow(<Wizard item={item}
+      banks={banks} branches={[]}
+      isEditing={true} onBankSelected={bankSelectedFn}
+      onClose={onCloseFn} updateAccount={updateAccountFn}
+     show={true} />);
+    expect(wrapper.state().isfirstStep).toEqual(true);
+    wrapper.setState({isfirstStep: false});
+    wrapper.setProps({branches: null, show: true});
+    expect(wrapper.state().show).toEqual(true);
+  });
 });
