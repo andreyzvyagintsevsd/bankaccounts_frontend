@@ -26,15 +26,15 @@ describe('ItemsTable', ()=> {
                                         editAccount={editAccountFn}
                                         deleteAccount={deleteAccountFn} />));
 
-  it('shoud contain a BootstrapTable', () => {
+  it('should contain a BootstrapTable', () => {
     expect(wrapper.find(BootstrapTable).length).toEqual(1);
   });
 
-  it('shoud contain a EditButton', () => {
+  it('should contain a EditButton', () => {
     expect(wrapper.find("button#cellButton").length).toEqual(1);
   });
 
-  it('shoud contain a DeleteButton', () => {
+  it('should contain a DeleteButton', () => {
     expect(wrapper.find("button#deleteButton").length).toEqual(1);
   });
 

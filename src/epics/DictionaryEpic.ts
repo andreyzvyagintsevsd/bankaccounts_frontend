@@ -10,7 +10,7 @@ type Action = ActionType<typeof actions>;
 import { RootState } from "../reducers";
 import { getBanks, getBranches } from "../services/Api";
 
-const getBanksEpic: Epic<Action, Action, RootState> = (action$, store) =>
+export const getBanksEpic: Epic<Action, Action, RootState> = (action$, store) =>
   action$.pipe(
     filter(isActionOf(actions.getBanksAction)),
     switchMap(action =>
@@ -21,7 +21,7 @@ const getBanksEpic: Epic<Action, Action, RootState> = (action$, store) =>
     )
   );
 
-const getBranchesEpic: Epic<Action, Action, RootState> = (action$, store) =>
+export const getBranchesEpic: Epic<Action, Action, RootState> = (action$, store) =>
   action$.pipe(
     filter(isActionOf(actions.getBranchesAction)),
     switchMap(action =>

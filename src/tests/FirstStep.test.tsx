@@ -18,7 +18,7 @@ describe("FirstStep", () => {
                                         changeEmployeeName={(event) => undefined}
                                         onBankSelect={(event, e) => undefined} />));
 
-  it("shoud render a table", () => {
+  it("should render a table", () => {
     expect(wrapper.find("table").length).toEqual(1);
   });
 

@@ -11,7 +11,7 @@ import { RootState } from "../reducers";
 
 import { getAccountList, deleteAccount, updateAccount } from "../services/Api";
 
-const getAccountsListEpic: Epic<Action, Action, RootState> = (action$, store) =>
+export const getAccountsListEpic: Epic<Action, Action, RootState> = (action$, store) =>
   action$.pipe(
     filter(isActionOf(actions.getAccountListAction)),
     switchMap(action =>
@@ -22,7 +22,7 @@ const getAccountsListEpic: Epic<Action, Action, RootState> = (action$, store) =>
     )
   );
 
-  const deleteAccountEpic: Epic<Action, Action, RootState> = (action$, store) =>
+export const deleteAccountEpic: Epic<Action, Action, RootState> = (action$, store) =>
   action$.pipe(
     filter(isActionOf(actions.deleteAccountAction)),
     switchMap(action =>
@@ -33,12 +33,12 @@ const getAccountsListEpic: Epic<Action, Action, RootState> = (action$, store) =>
     )
   );
 
-  const updateAccountEpic: Epic<Action, Action, RootState> = (action$, store) =>
+export const updateAccountEpic: Epic<Action, Action, RootState> = (action$, store) =>
   action$.pipe(
     filter(isActionOf(actions.updateAccountAction)),
     switchMap(action =>
       from(updateAccount(action.payload)).pipe(
-        map(() => actions.getAccountListAction("", "")),
+        map(() => actions.getAccountListAction(store.value.account.min, store.value.account.max)),
         catchError(error => of(actions.getAccountFailAction(error)))
       ),
     )

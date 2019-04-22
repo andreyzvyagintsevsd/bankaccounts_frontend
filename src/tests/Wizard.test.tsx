@@ -119,9 +119,20 @@ describe('Wizard', () => {
     expect(wrapper.state().item.id).toEqual("2222");
   });
 
-  // it("isEditing is false", () => {
-  //   // wrapper.setState({isEditing: false});
-  //   expect(wrapper.find("#wizard.title.edit").length).toEqual(1);
-  //   // expect(wrapper.findWhere((n: ReactWrapper) => n.prop("defaultMessage") === "Edit").length).toEqual(1);
-  // });
+  it("componentWillReceiveProps with new branches array (true)", () => {
+    wrapper.setProps({branches: ["aaa", "ooo"]});
+    expect(wrapper.state().item.branchName).toEqual("");
+  });
+
+  it("componentWillReceiveProps with old branches array (true)", () => {
+    let wrapper = shallow(<Wizard item={item}
+      banks={banks} branches={[]}
+      isEditing={true} onBankSelected={bankSelectedFn}
+      onClose={onCloseFn} updateAccount={updateAccountFn}
+     show={true} />);
+    expect(wrapper.state().isfirstStep).toEqual(true);
+    wrapper.setState({isfirstStep: false});
+    wrapper.setProps({branches: [], show: true});
+    expect(wrapper.state().show).toEqual(true);
+  });
 });

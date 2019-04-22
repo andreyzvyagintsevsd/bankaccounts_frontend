@@ -9,7 +9,7 @@ describe('ItemsListHeader', () => {
   let wrapper: any;
   beforeEach(() => wrapper = shallow(<ItemsListHeader filter={filterFn} create={createFn} />));
 
-  it("shoud render a table", () => {
+  it("should render a table", () => {
     expect(wrapper.find("table").length).toEqual(1);
   });
 

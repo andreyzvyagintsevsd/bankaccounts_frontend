@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '../App';
-import { shallow } from 'enzyme';
+import { shallow, ShallowWrapper } from 'enzyme';
 import ItemsListContainer from '../components/list/ItemsListContainer';
 
 describe('App', () => {
-  let wrapper;
+  let wrapper: any;
   beforeEach(() => wrapper = shallow(<App />));
 
   // it('renders without crashing', () => {
@@ -14,7 +14,7 @@ describe('App', () => {
   //   ReactDOM.unmountComponentAtNode(div);
   // });
 
-  it('shoud render a div', () => {
+  it('should render a div', () => {
     expect(wrapper.find('div').length).toEqual(1);
   });
 

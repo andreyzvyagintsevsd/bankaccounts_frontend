@@ -27,7 +27,7 @@ export const accountReducer = (state: AccountState = initialState, action: Actio
   switch (action.type) {
 
     case getType(actions.getAccountListAction):
-      return Object.assign({}, state, { min: action.payload.minAccount, max: action.payload.minAccount });
+      return Object.assign({}, state, { min: action.payload.minAccount, max: action.payload.maxAccount });
 
     case getType(actions.getAccountSuccessAction):
       return Object.assign({}, state, { accounts: action.payload });

@@ -16,16 +16,16 @@ export interface PayloadAction {
 
 import ItemsList  from "./ItemsList";
 
-interface OwnProps {
+export interface OwnProps {
 }
 
-const mapStateToProps = (state: RootState) => ({
+export const mapStateToProps = (state: RootState) => ({
   itemsList: state.account.accounts,
   branches: state.dictionary.branches,
   banks: state.dictionary.banks,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<any>, props: OwnProps) => bindActionCreators({
+export const mapDispatchToProps = (dispatch: Dispatch<any>, props: OwnProps) => bindActionCreators({
   getAccountList: (minAccount: string, maxAccount: string) => actions.getAccountListAction(minAccount, maxAccount),
   deleteAccount: (accountId: number) => actions.deleteAccountAction(accountId),
   updateAccount: (account: Account) => actions.updateAccountAction(account),

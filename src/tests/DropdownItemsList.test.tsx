@@ -13,7 +13,7 @@ describe("DropdownItemsList", () => {
                                         name={"option1"}
                                         items={items} />));
 
-  it("shoud render a Dropdown", () => {
+  it("should render a Dropdown", () => {
     expect(wrapper.find("Dropdown").length).toEqual(1);
   });
 

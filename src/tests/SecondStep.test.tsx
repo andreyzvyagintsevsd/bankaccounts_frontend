@@ -16,7 +16,7 @@ describe("SecondStep", () => {
                                         changeAccountNumber={(event)=>undefined }
                                    />));
 
-  it("shoud render a table", () => {
+  it("should render a table", () => {
     expect(wrapper.find("table").length).toEqual(1);
   });
 

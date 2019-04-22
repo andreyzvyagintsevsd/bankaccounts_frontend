@@ -17,7 +17,7 @@ export const GET_BANKS_FAIL   = "GET_BANKS_FAIL";
 
 // tslint:disable-next-line:max-line-length
 export const getAccountListAction = createAction(GET_ACCOUNTS_LIST, resolve => (minAccount: string, maxAccount: string) => resolve({minAccount, maxAccount}));
-export const getAccountSuccessAction = createAction(GET_ACCOUNTS_LIST_SUCCESS, resolve => (list: Response) => resolve(list));
+export const getAccountSuccessAction = createAction(GET_ACCOUNTS_LIST_SUCCESS, resolve => (list: Account[]) => resolve(list));
 
 export const getAccountFailAction = createAction(GET_ACCOUNTS_LIST_FAIL, resolve => (error: Error) => resolve(error));
 export const updateAccountAction = createAction(UPDATE_ACCOUNT, resolve => (account: Account) => resolve(account));
@@ -25,9 +25,9 @@ export const deleteAccountAction = createAction(DELETE_ACCOUNT, resolve => (acco
 
 
 export const getBranchesAction = createAction(GET_BRANCHES, resolve => (bank: string) => resolve(bank));
-export const getBranchesSuccessAction = createAction(GET_BRANCHES_SUCCESS, resolve => (list: Response) => resolve(list));
+export const getBranchesSuccessAction = createAction(GET_BRANCHES_SUCCESS, resolve => (list: string[]) => resolve(list));
 export const getBranchesFailAction = createAction(GET_BRANCHES_FAIL, resolve => (error: Error) => resolve(error));
 
 export const getBanksAction = createAction(GET_BANKS, resolve => () => resolve());
-export const getBanksSuccessAction = createAction(GET_BANKS_SUCCESS, resolve => (list: Response) => resolve(list));
+export const getBanksSuccessAction = createAction(GET_BANKS_SUCCESS, resolve => (list: string[]) => resolve(list));
 export const getBanksFailAction = createAction(GET_BANKS_FAIL, resolve => (error: Error) => resolve(error));

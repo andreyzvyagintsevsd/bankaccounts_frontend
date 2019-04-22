@@ -20,23 +20,23 @@ describe('ItemsList', ()=> {
 
   beforeEach(() => wrapper = shallow(<ItemsList itemsList={items} />));
 
-  it("shoud contain a div", () => {
+  it("should contain a div", () => {
     let wr = shallow(<ItemsList itemsList={items} />);
     expect(wr.find("div").length).toEqual(1);
   });
 
-  it("shoud contain a ItemsListHeader", () => {
+  it("should contain a ItemsListHeader", () => {
     // let createFn = jest.fn();
     // let filterFn = jest.fn();
     // let header = shallow(<ItemsListHeader create={createFn} filter={filterFn} />);
     expect(wrapper.find("ItemsListHeader").length).toEqual(1);
   });
 
-  it("shoud contain a ItemsTable", () => {
+  it("should contain a ItemsTable", () => {
     expect(wrapper.find("ItemsTable").length).toEqual(1);
   });
 
-  it("shoud contain a Wizard", () => {
+  it("should contain a Wizard", () => {
     expect(wrapper.find("Wizard").length).toEqual(1);
   });
 
@@ -45,10 +45,10 @@ describe('ItemsList', ()=> {
     expect(emptyWrapper).toEqual(null);
   });
 
-  it("shoud return null for null itemList", () => {
+  it("should return null for null itemList", () => {
     let emptyWrapper = shallow(<ItemsList itemsList={null} branches={[]} banks={[]} />);
     expect(emptyWrapper).toEqual(null);
   });
 
-  
+
 });
