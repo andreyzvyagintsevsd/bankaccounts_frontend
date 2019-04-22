@@ -26,6 +26,7 @@ const onBankSelectFn = jest.fn();
 
 describe('Wizard', () => {
   let wrapper: any;
+  let wrapperWizard: any;
   let item;
   let banks = ["Bank", "Sber"];
   let branches = ["BranchA", "BranchB"];
@@ -48,6 +49,13 @@ describe('Wizard', () => {
                           handleSave={handleSaveFn}
                           onBankSelect={onBankSelectFn}
                                             show={true} />);
+
+  wrapperWizard = shallow(<Wizard item={item}
+    banks={banks} branches={[]}
+    isEditing={true} onBankSelected={bankSelectedFn}
+    onClose={onCloseFn} updateAccount={updateAccountFn}
+   show={true} />);
+
     item = {
       id: 1,
       accountHolderName: "Ivanov",
@@ -94,10 +102,18 @@ describe('Wizard', () => {
   });
 
 
+
   it("onBankSelect", () => {
-    wrapper.instance().props.onBankSelect(null,  { target: { text: "OOO" } });
-    let name = wrapper.state().item.bankName;
+    wrapperWizard.instance().onBankSelect(null,  { target: { text: "OOO" } });
+    let name = wrapperWizard.state().item.bankName;
     expect(name).toEqual("OOO");
+    expect(bankSelectedFn).toHaveBeenCalledWith("OOO")
+  });
+
+
+  it("changeProperty", () => {
+    wrapperWizard.instance().changeProperty("accountHolderName", "Johnson");
+    expect(wrapperWizard.state().item.accountHolderName).toEqual("Johnson");
   });
 
   // it("handleClose", () => {
@@ -117,15 +133,15 @@ describe('Wizard', () => {
   //   expect(wrapper.state().isfirstStep).toEqual(true);
   // });
 
-  // it("handleSave", () => {
-  //   let itemChanged = {...item};
-  //   itemChanged.bankName = "ooo";
-  //   wrapper.setState({item: {...itemChanged}});
-  //   wrapper.instance().props.handleSave();
+  it("handleSave", () => {
+    let itemChanged = {...item};
+    itemChanged.bankName = "ooo";
+    wrapperWizard.setState({item: {...itemChanged}});
+    wrapperWizard.instance().handleSave();
 
-  //   expect(onCloseFn).toHaveBeenCalled();
-  //   expect(updateAccountFn).toHaveBeenCalledWith(itemChanged);
-  // });
+    expect(onCloseFn).toHaveBeenCalled();
+    expect(updateAccountFn).toHaveBeenCalledWith(itemChanged);
+  });
 
   // it("changeAccountName", () => {
   //   wrapper.instance().changeAccountName({target: { value: "new name"}});
@@ -162,9 +178,22 @@ describe('Wizard', () => {
   //   expect(wrapper.state().item.id).toEqual("2222");
   // });
 
+
+  // it("should WizardView call handleBack", () => {
+  //   wrapper.setState({isfirstStep: false});
+  //   wrapper.find("WizardView").props().handleBack();
+  //   expect(wrapper.state().show).toEqual(true);
+  // });
+
+  // it("should WizardView call changeEmployeeName", () => {
+  //   wrapper.setState({isfirstStep: false});
+  //   wrapper.find("WizardView").props().changeEmployeeName({target: { value: "aaaa"}});
+  //   expect(wrapper.state().item!.employeeName).toEqual("aaaa");
+  // });
+
   it("componentWillReceiveProps with new branches array (true)", () => {
-    wrapper.setProps({branches: ["aaa", "ooo"]});
-    expect(wrapper.state().item.branchName).toEqual("");
+    wrapperWizard.setProps({branches: ["aaa", "ooo"]});
+    expect(wrapperWizard.state().item.branchName).toEqual("");
   });
 
   it("componentWillReceiveProps with old branches array (true)", () => {
