@@ -4,9 +4,21 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Frontend part of test assignment
 
+Used technologies stack:
+1. ReactJS,
+2. Redux,
+3. Typescript,
+4. Jest, Enzyme
+5. react-intl for i18n/l11n library
+
 The app deployed to http://bank-accounts.stage.sharp-dev.net
 
-Time spent: Frontend: 18 hours, Backend: 6 hours, Deployment: 0.5 hours
+Time spent: Frontend: 28 hours, Backend: 6 hours, Deployment: 0.5 hours
+
+To run app:
+1. npm i
+2. npm start
+
 
 ## Available Scripts
 
