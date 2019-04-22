@@ -2,7 +2,7 @@ import * as React from "react";
 import { Modal, Button } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
 
-interface WizardFooterProps {
+export interface WizardFooterProps {
   isfirstStep: boolean;
   handleClose: () => void;
   handleBack: () => void;

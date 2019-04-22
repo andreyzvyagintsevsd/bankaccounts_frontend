@@ -86,7 +86,7 @@ describe("AccountEpic", () => {
     });
 
     const expectedOutput = ActionsObservable.of(actions.getAccountListAction("0", "1"));
-    getBranchesEpic(deleteAccountAction, {}, undefined)
+    deleteAccountEpic(deleteAccountAction, {}, undefined)
       .subscribe((actions) => {
         expect(actions).toEqual(expectedOutput);
       });

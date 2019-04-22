@@ -2,18 +2,16 @@ import { FormattedMessage } from "react-intl";
 import * as React from "react";
 import { Dropdown } from "react-bootstrap";
 import { DropdownItemsList } from "./DropdownItemsList";
+import { Account } from "../../models/Account";
 
-interface FirstStepProps {
-  accountHolderName: string;
+export interface FirstStepProps {
   banks?:  string[];
   branches?:  string[];
   changeAccountName: (event: any) => void;
-  employeeName: string;
   changeEmployeeName: (event: any) => void;
   onBankSelect: (eventKey: any, event: any) => void;
-  bankName: string;
   changeBranchName: (eventKey: any, event: any) => void;
-  branchName: string;
+  item?: Account;
 }
 
 export const FirstStep: React.SFC<FirstStepProps> = (props) => {
@@ -21,18 +19,19 @@ export const FirstStep: React.SFC<FirstStepProps> = (props) => {
  <tbody>
    <tr>
      <td><FormattedMessage id="list.table.accountHolder" defaultMessage="Account Holder's name" /></td>
-       <td><input className="form-control" style={{width: "200px"}} value={props.accountHolderName} onChange={props.changeAccountName} />
+       <td><input className="form-control" style={{width: "200px"}}
+        value={props.item!.accountHolderName} onChange={props.changeAccountName} />
        </td>
        <td><FormattedMessage id="list.table.employee" defaultMessage="Employee" /></td>
-        <td><input className="form-control" style={{width: "200px"}} value={props.employeeName} onChange={props.changeEmployeeName} />
+        <td><input className="form-control" style={{width: "200px"}} value={props.item!.employeeName} onChange={props.changeEmployeeName} />
        </td>
      </tr>
    <tr>
        <td><FormattedMessage id="list.table.bank" defaultMessage="Bank Name" /></td>
-        <td><DropdownItemsList items={props.banks} name={props.bankName} onSelect={props.onBankSelect}/>
+        <td><DropdownItemsList items={props.banks} name={props.item!.bankName} onSelect={props.onBankSelect}/>
        </td>
      <td><FormattedMessage id="list.table.branch" defaultMessage="Branch Name" /></td>
-       <td><DropdownItemsList items={props.branches} name={props.branchName} onSelect={props.changeBranchName}/>
+       <td><DropdownItemsList items={props.branches} name={props.item!.branchName} onSelect={props.changeBranchName}/>
        </td>
      </tr>
    </tbody>
